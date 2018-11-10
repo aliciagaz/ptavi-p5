@@ -134,42 +134,68 @@ Todos son señal menos ICMP y ARP que son ruido.
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
-12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una
-opción RTP. Empecemos mirando los flujos RTP.
-* ¿Cuántos flujos hay? ¿por qué?
-* ¿Cuántos paquetes se pierden?
-* ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el
-valor de delta?
-* ¿Cuáles son los valores de jitter (medio y máximo)? ¿Qué
-quiere decir eso? ¿Crees que estamos ante una conversación de
-calidad?
+12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una opción RTP. Empecemos mirando los flujos RTP.
+ * ¿Cuántos flujos hay? ¿por qué?
+	Hay un flujo para H.261 y otro para g.711. Se envían por separado.
 
-13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony
--> RTP -> Stream Analysis.
-* ¿Cuánto valen el delta y el jitter para el primer paquete que
-ha llegado?
-* ¿Podemos saber si éste es el primer paquete que nos han enviado?
-* Los valores de jitter son menores de 10ms hasta un paquete
-dado. ¿Cuál?
-* ¿A qué se debe el cambio tan brusco del jitter?
-* ¿Es comparable el cambio en el valor de jitter con el del delta?
-¿Cual es más grande?
+ * ¿Cuántos paquetes se pierden?
+	No se pierde ningún paquete en ninguno de los dos flujos. 
 
-14. En Telephony selecciona el menú VoIP calls. Verás que se lista la
-llamada de voz IP capturada en una ventana emergente. Selecciona
-esa llamada y pulsa el botón Graph.
-* ¿Cuánto dura la conversación?
-* ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
+ * ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el valor de delta?
+	El valor máximo de la delta para los paquetes de audio es de 1290.48 y para los paquetes de video de 1290.44 ms. El valor de la delta muestra el retardo o latencia (tiempo que tarda un paquete de ir del origen al destino).
+
+ * ¿Cuáles son los valores de jitter (medio y máximo)? ¿Qué quiere decir eso? ¿Crees que estamos ante una conversación de calidad?
+	Los valores medio de jitter son 153.24 y 42.50 respectivamente. Y máximos 183.10 para el primer flujo y 119.64 para el segundo.
+El jitter es el parámetro que determina la variación temporal que experimemta el retardo en una transmisión de paquetes entre el inicio y el fin de la comunicación. Por tanto, si tenemos un jitter alto no tenemos una conversación de calidad. 
+
+13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony -> RTP -> Stream Analysis.
+
+ * ¿Cuánto valen el delta y el jitter para el primer paquete que ha llegado?
+	La delta y el jitter en los dos casos vale 0. 
+
+ * ¿Podemos saber si éste es el primer paquete que nos han enviado?
+	Si la delta es 0 es el primer paquete que se ha enviado. Además el parámetro Marker indica cual es el primer paquete que ha sido enviado.
+
+ * Los valores de jitter son menores de 10ms hasta un paquete dado. ¿Cuál?
+	Hasta el paquete 247, que es cuando cambia. 
+
+ * ¿A qué se debe el cambio tan brusco del jitter?
+	Aumenta el valor de la delta y por tanto también el del jitter. Es decir, este cambio se debe a que disminuye el ancho de banda y aumenta la congestión, por lo que va haber más retardo en los paquetes. 
+
+ * ¿Es comparable el cambio en el valor de jitter con el del delta? ¿Cual es más grande?
+	El cambio del valor del jitter depende del cambio de la delta. Es más grande el del jitter.
+
+14. En Telephony selecciona el menú VoIP calls. Verás que se lista la llamada de voz IP capturada en una ventana emergente. Selecciona esa llamada y pulsa el botón Graph.
+ * ¿Cuánto dura la conversación?
+	La conversación dura 20,8 segundos.
+
+ * ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
+	Paquete G.711 --> 0xbf4afd37
+	Paquete H.261 --> 0x43306582
+Hay un SRC para cada flujo. No hay ningún CSRCs.
 
 15. Identifica la trama donde se finaliza la conversación.
-* ¿Qué método SIP se utiliza?
-* ¿En qué trama(s)?
-* ¿Por qué crees que se envı́a varias veces?
+ * ¿Qué método SIP se utiliza?
+	Se utiliza el método BYE.
+
+ * ¿En qué trama(s)?
+	En los paquetes 924, 925, 927 y 933.
+
+ * ¿Por qué crees que se envı́a varias veces?
+	Se reenvía los paquetes hasta que recibe un mensaje 200 OK.
 
 16. Finalmente, se cierra la aplicación de VozIP.
-* ¿Por qué aparece una instrucción SIP del tipo REGISTER?
-* ¿En qué trama sucede esto?
-* ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
+
+ * ¿Por qué aparece una instrucción SIP del tipo REGISTER?
+	Porque cuando cerramos sesión se envía un register con Expires = 0.
+
+ * ¿En qué trama sucede esto?
+	En la 950.
+
+ * ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
+	Pues que el primer register tiene una expiración de 3600 segundos y ahora es de 0 segundos.
+
+
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 Captura de una sesión SIP
