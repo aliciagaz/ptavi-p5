@@ -91,32 +91,47 @@ Todos son señal menos ICMP y ARP que son ruido.
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 9. Fijémonos en las tramas siguientes a la número 46:
-* ¿Se registra con éxito en el primer intento?
-* ¿Cómo sabemos si el registro se ha realizado correctamente o no?
-* ¿Podrı́as identificar las diferencias entre el primer intento y el
-segundo de registro? (fı́jate en el tamaño de los paquetes y mira
-a qué se debe el cambio)
-* ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica
-las unidades.
 
-10. Una vez registrados, podemos efectuar una llamada. Vamos a probar
-con el servicio de eco de Ekiga que nos permite comprobar si nos
-hemos conectado correctamente. El servicio de eco tiene la dirección
-sip:500@ekiga.net. Veamos el INVITE de cerca.
-* ¿Puede verse el nombre del que efectúa la llamada, ası́ como su
-dirección SIP?
-* ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
-* ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
-* ¿En qué se diferencia el segundo INVITE más abajo del primero?
-¿A qué crees que se debe esto?
+ * ¿Se registra con éxito en el primer intento?
+	No se registra con éxito en el primer intento y el servidor le contesta con un mensaje 401 Unauthorized.
+ * ¿Cómo sabemos si el registro se ha realizado correctamente o no?
+	Sabemos que es correcto cuando el servidor contesta con un 200 OK. 
+
+ * ¿Podrı́as identificar las diferencias entre el primer intento y el segundo de registro? (fı́jate en el tamaño de los paquetes y mira a qué se debe el cambio)
+	En el primer intento no se encuentra la cabecera de Autentificación, mientras que en el segundo intento sí. 
+
+ * ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades.
+	El valor del tiempo de expiración de la sesión lo podemos encontrar en la cabecera Expires y tiene un valor de 3600 segundos. 
+
+10. Una vez registrados, podemos efectuar una llamada. Vamos a probar con el servicio de eco de Ekiga que nos permite comprobar si nos hemos conectado correctamente. El servicio de eco tiene la dirección sip:500@ekiga.net. Veamos el INVITE de cerca.
+
+ * ¿Puede verse el nombre del que efectúa la llamada, ası́ como su dirección SIP?
+	Sí, esta información la podemos ver en el campo From. 
+ * ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
+	El cuerpo de la trama contiene la información sobre la sesión SIP. Está en el protocolo SDP(Session description protocol).
+ * ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
+	No tiene éxito, ya que se envía un segundo INVITE. 
+
+ * ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
+	La diferencia es que en el segundo INVITE aparece una nueva cabecera (Proxy-Authorization). Esto se debe a que al enviar el primer INVITE el servidor le respondió con un mensaje 407 Proxy-Authorization Required.  
 
 11. Una vez conectado, estudia el intercambio de tramas.
-* ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos?
-* ¿Cuál es el tamaño de paquete de los mismos?
-* ¿Se utilizan bits de padding?
-* ¿Cuál es la periodicidad de los paquetes (en origen; nota que la
-captura es en destino)?
-* ¿Cuántos bits/segundo se envı́an?
+
+ * ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos?
+	Los protocolos que se utilizan son RTP(Transmisión de tráfico multimedia en tiempo real), H.261(Comprensor de vídeo), RTCP(Proporciona información sobre la calidad de la información).
+
+ * ¿Cuál es el tamaño de paquete de los mismos?
+	Los paquetes de RTP tienen un tamaño fijo, 214 bytes. Los paquetes de H.261 y RTCP tienen un tamaño variable, es decir, varia el tamaño dependiendo del paquete.
+
+ * ¿Se utilizan bits de padding?
+	No. EL bit de padding es 0 en todos los paquetes.
+
+ * ¿Cuál es la periodicidad de los paquetes (en origen; nota que la captura es en destino)?
+	Los paquetes se envían cada 20ms.
+
+ * ¿Cuántos bits/segundo se envı́an?
+	Se envían 64Kbits/seg
+
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una
