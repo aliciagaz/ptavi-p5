@@ -244,15 +244,3 @@ Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 [Al terminar la práctica, realiza un push para sincronizar tu repositorio GitHub]
-
-
-
-
-
-
-
-
-NOTA: SRC --> IDENTIFICADORES DE FUENTES
-MAX DELTA --> ES LA DIFERENCIA ENTRE UN PAQUETE QUE HE ENVIADO Y EL SIGUIENTE --> MAX DIFERENCIA ENTRE PAQUETES 
-JITTER --> DIFERENCIA DE CUANDO ME DEBERÍA HABER LLEGADO EL PAQUETE Y CUANDO ME HA LLEGADO DE VERDAD (BUFFER)
-
