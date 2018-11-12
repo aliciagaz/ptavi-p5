@@ -215,23 +215,33 @@ Ekiga para ver todo el proceso3 .
 
 19. Observa las diferencias en el inicio de la conversación entre el entorno
 del laboratorio y el del ejercicio anterior4 :
-* ¿Se utilizan DNS y STUN? ¿Por qué?
-* ¿Son diferentes el registro y la descripción de la sesión?
+ * ¿Se utilizan DNS y STUN? ¿Por qué?
+	Sí se utilizan las dos. DNS para la asignación de nombres del dominio a direcciones IP y STUN que permite a clientes NAT encontrar su dirección IP pública. 
+ * ¿Son diferentes el registro y la descripción de la sesión?
+	Sí.
 
 20. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
-* ¿Cuántos flujos tenemos?
-* ¿Cuál es su periodicidad?
-* ¿Cuánto es el valor máximo del delta y los valores medios y
-máximo del jitter?
-* ¿Podrı́as reproducir la conversación desde Wireshark? ¿Cómo?
-Comprueba que poniendo un valor demasiado pequeño para el
-buffer de jitter, la conversación puede no tener la calidad necesaria.
-* ¿Sabrı́as decir qué tipo de servicio ofrece sip:500@ekiga.net?
-[Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
+ * ¿Cuántos flujos tenemos?
+	Tenemos dos flujos, uno de audio y otro de vídeo.
+
+ * ¿Cuál es su periodicidad?
+	320ms
+
+ * ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
+	El valor máximo de la delta es 23.129ms y 37.245ms. Los valores máximos del jitter son 1.187 y 13.049. Y por último los valores medios del jitter son 0.602 y 12.511.
+
+ * ¿Podrı́as reproducir la conversación desde Wireshark? ¿Cómo? 
+	Sí, en la pestaña de Telephony --> VoIP Calls --> Play Streams --> Play.
+Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
+
+ * ¿Sabrı́as decir qué tipo de servicio ofrece sip:500@ekiga.net?
+	El tipo de servicio que ofrece es eco.
+
+ [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 
-21. Filtra por los paquetes SIP de la captura y guarda únicamente los
-paquetes SIP como p5.pcapng. Abre el fichero guardado para cerciorarte de que lo has hecho bien. Deberás añadirlo al repositorio.
+21. Filtra por los paquetes SIP de la captura y guarda únicamente los paquetes SIP como p5.pcapng. Abre el fichero guardado para cerciorarte de que lo has hecho bien. Deberás añadirlo al repositorio.
+
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 [Al terminar la práctica, realiza un push para sincronizar tu repositorio GitHub]
 
